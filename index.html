@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 2nd Anniversary My Love</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe4e6 52%, #fff1f2 100%);
+            overflow-x: hidden;
+            color: #4a4a4a;
+            min-height: 100vh;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Step Transitions */
+        .step {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .step.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Floating Background Hearts */
+        .bg-heart {
+            position: fixed;
+            color: rgba(190, 18, 60, 0.24);
+            font-size: 24px;
+            user-select: none;
+            z-index: 0;
+            pointer-events: none;
+            animation: float-up 12s linear infinite;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Passcode Shake */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
+        }
+
+        /* Cake & Candles */
+        .cake {
+            position: relative;
+            width: 250px;
+            height: 100px;
+            background: linear-gradient(135deg, #e11d48, #9f1239);
+            border-radius: 10px 10px 0 0;
+            box-shadow: inset 0 -10px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.1);
+            margin: 0 mx-auto;
+        }
+        .cake-name {
+            position: absolute;
+            z-index: 2;
+            top: 48px;
+            left: 0;
+            width: 100%;
+            color: #fff8e7;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(92, 12, 35, 0.65);
+        }
+        .cake::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: -20px;
+            width: 290px;
+            height: 30px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .drip {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 30px;
+            background: #fff;
+            border-radius: 10px 10px 20px 20px;
+        }
+        .candle-container {
+            position: absolute;
+            top: -60px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        .candle {
+            width: 16px;
+            height: 60px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #e11d48 5px, #e11d48 10px);
+            border-radius: 4px;
+            position: relative;
+            box-shadow: inset 0 -5px rgba(0,0,0,0.1);
+        }
+        .flame {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
+            background: #ffdb58;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #ffdb58, 0 0 20px #ff8c00;
+            animation: flicker 0.1s infinite alternate;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .flame.out {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+            animation: none;
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); box-shadow: 0 0 15px #ffdb58, 0 0 20px #ff8c00; }
+            100% { transform: translateX(-50%) scale(1.1) skewX(2deg); box-shadow: 0 0 20px #ffdb58, 0 0 25px #ff8c00; }
+        }
+        .wish-scene {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            width: 100%;
+            padding: 3.5rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 2rem;
+            background:
+                linear-gradient(rgba(76, 9, 30, 0.32), rgba(76, 9, 30, 0.32)),
+                url("portrait.png") center 36% / cover no-repeat,
+                linear-gradient(135deg, #7f1026, #e11d48);
+            box-shadow: 0 20px 50px rgba(80, 10, 25, 0.25);
+        }
+        .wish-scene::before {
+            content: "❤️";
+            position: absolute;
+            z-index: -1;
+            right: 1.5rem;
+            top: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 2rem;
+            filter: drop-shadow(0 3px 8px rgba(80, 10, 25, 0.4));
+        }
+        .wish-scene > * {
+            position: relative;
+        }
+        .wish-scene .cake {
+            margin-inline: auto;
+        }
+        @media (max-width: 640px) {
+            .wish-scene {
+                padding: 2.5rem 1rem;
+                background-position: center, 62% center, center;
+            }
+        }
+
+        /* Polaroid styling */
+        .polaroid {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        /* Envelope Styling */
+        .envelope {
+            background: #fb7185;
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #e11d48;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 20;
+        }
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background: #fffafa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            transition: transform 0.8s ease-in-out, height 0.8s;
+            z-index: 10;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .envelope.open .letter {
+            transform: translateY(-80%);
+            height: 250px;
+            z-index: 15;
+            overflow-y: auto;
+        }
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fb7185;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            z-index: 15;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Floating Music Button */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #be123c;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #music-btn:hover {
+            transform: scale(1.1);
+        }
+        .playing-anim {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(190, 18, 60, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(190, 18, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(190, 18, 60, 0); }
+        }
+        /* Final scrapbook photo wall */
+        .memory-wall {
+            position: relative;
+            isolation: isolate;
+            width: 100%;
+            min-height: 620px;
+        }
+        .memory-wall-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.5rem 1rem;
+            padding: 1.5rem;
+            transform: rotate(-2deg) scale(1.05);
+        }
+        .memory-photo {
+            padding: 8px 8px 12px;
+            background: #fff;
+            box-shadow: 0 8px 20px rgba(25, 0, 5, 0.32);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .memory-photo:nth-child(3n) { transform: rotate(5deg) translateY(12px); }
+        .memory-photo:nth-child(3n + 1) { transform: rotate(-6deg) translateY(-8px); }
+        .memory-photo:nth-child(3n + 2) { transform: rotate(2deg) translateY(18px); }
+        .memory-photo:hover {
+            transform: scale(1.08) rotate(0deg);
+            z-index: 2;
+            box-shadow: 0 14px 28px rgba(25, 0, 5, 0.42);
+        }
+        .memory-photo img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1.15;
+            object-fit: cover;
+        }
+        .memory-wall-message {
+            position: absolute;
+            z-index: 3;
+            top: 48%;
+            left: 50%;
+            width: max-content;
+            max-width: 92%;
+            transform: translate(-50%, -50%) rotate(-3deg);
+            color: #fff;
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            line-height: 1;
+            text-align: center;
+            padding: 0.2em 0;
+            text-shadow: 0 3px 12px rgba(50, 0, 10, 0.8);
+            pointer-events: none;
+            clip-path: inset(0 100% 0 0);
+        }
+        .memory-wall-message.is-writing {
+            animation: write-message 3.5s steps(30, end) both;
+        }
+        @keyframes write-message {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .memory-wall-message {
+                clip-path: none;
+                animation: none;
+            }
+        }
+        .song-section {
+            width: 100%;
+            padding: clamp(1.5rem, 5vw, 3.5rem);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 1.5rem;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(251, 113, 133, 0.35), transparent 55%),
+                linear-gradient(145deg, #6b1024, #a31632 55%, #570d20);
+            box-shadow: 0 18px 40px rgba(80, 10, 25, 0.25);
+        }
+        .song-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+            padding: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 1rem;
+            background: rgba(58, 6, 20, 0.48);
+            box-shadow: 0 8px 22px rgba(35, 0, 8, 0.22);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+        .song-card:hover {
+            transform: translateY(-4px);
+            background: rgba(75, 8, 24, 0.72);
+        }
+        .song-art {
+            width: 76px;
+            height: 76px;
+            flex: 0 0 76px;
+            display: grid;
+            place-items: center;
+            border-radius: 0.7rem;
+            color: #fff;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+        .song-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.55rem;
+            border-radius: 999px;
+            background: #fff;
+            padding: 0.4rem 0.75rem;
+            color: #881337;
+            font-size: 0.75rem;
+            font-weight: 800;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .song-link:hover {
+            transform: scale(1.04);
+            background: #ffe4e6;
+        }
+        .relationship-timer {
+            width: 100%;
+            margin: -1.5rem 0 2rem;
+            padding: 1.25rem;
+            border: 1px solid rgba(190, 18, 60, 0.18);
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 8px 24px rgba(136, 19, 55, 0.08);
+        }
+        .timer-unit {
+            min-width: 0;
+            padding: 0.7rem 0.35rem;
+            border-radius: 0.85rem;
+            background: linear-gradient(145deg, #fff, #fff1f2);
+        }
+        @media (max-width: 640px) {
+            .memory-wall {
+                min-height: 490px;
+            }
+            .memory-wall-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1rem 0.6rem;
+                padding: 1.1rem 0.6rem;
+                transform: rotate(-2deg) scale(1.1);
+            }
+            .memory-photo {
+                padding: 5px 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Background Hearts -->
+    <div id="bg-hearts"></div>
+
+    <audio id="bg-music" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-acoustic-guitar-background-music-111163.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" onclick="toggleMusic()" aria-label="Toggle background music">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+    </button>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
+
+        <!-- STEP 1: Passcode -->
+        <div id="step-1" class="step active flex-col items-center justify-center w-full max-w-md">
+            <div class="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl text-center w-full border border-rose-200" id="passcode-box">
+                <div class="text-6xl mb-4">🐻❤️🐻</div>
+                <h2 class="text-3xl font-bold text-rose-700 mb-2 cursive">Hello My Love</h2>
+                <p class="text-gray-600 mb-6 text-sm">Enter the date we met to unlock your surprise<br>(DD-MM-YYYY)</p>
+                
+                <input type="text" id="passcode-input" placeholder="DD-MM-YYYY" 
+                    class="w-full text-center text-2xl tracking-widest border-b-2 border-rose-300 focus:border-red-600 outline-none bg-transparent mb-2 text-red-700 placeholder-rose-300 py-2 font-mono">
+                
+                <p id="passcode-error" class="text-red-400 text-sm h-5 opacity-0 transition-opacity mt-2">Oops! That's not it, sweetheart.</p>
+                
+                <button onclick="checkPasscode()" class="mt-6 w-full bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-700 hover:to-red-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
+                    Unlock My Heart
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 2: Welcome & Journey -->
+        <div id="step-2" class="step flex-col items-center justify-center w-full max-w-2xl text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-red-700 mb-6 cursive drop-shadow-sm">Happy 2nd Anniversary, My Love!</h1>
+            <p class="cursive text-4xl text-rose-700 -mt-3 mb-8">Suraj <span class="text-red-500">♡</span> Jessica</p>
+            
+            <div class="bg-white/60 backdrop-blur p-6 rounded-2xl shadow-sm mb-10 border border-rose-200 w-full relative">
+                <h3 class="text-xl text-gray-700 font-semibold mb-8">From Himachal to Gqeberha 🌍</h3>
+                
+                <!-- Journey Graphic -->
+                <div class="relative flex items-center justify-between w-full px-4 md:px-12">
+                    <div class="flex flex-col items-center z-10">
+                        <div class="text-4xl mb-2">🏔️</div>
+                        <span class="text-sm font-bold text-rose-700">Himachal,<br>India</span>
+                    </div>
+                    
+                    <!-- Connecting line -->
+                    <div class="flex-grow relative h-1 mx-4">
+                        <div class="absolute inset-0 border-t-2 border-dashed border-rose-500 mt-2"></div>
+                        <div class="absolute inset-0 flex justify-center mt-0 animate-pulse">
+                            <span class="text-2xl">✈️❤️</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center z-10">
+                        <div class="text-4xl mb-2">🌊</div>
+                        <span class="text-sm font-bold text-rose-700">Gqeberha,<br>SA</span>
+                    </div>
+                </div>
+            </div>
+
+            <section class="relationship-timer" aria-label="Time we've been together">
+                <h3 class="text-xl cursive text-red-700 mb-4">Every moment with you ❤️</h3>
+                <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="relationship-timer">
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-years">0</span><span class="text-xs text-gray-600">Years</span></div>
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-months">0</span><span class="text-xs text-gray-600">Months</span></div>
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-days">0</span><span class="text-xs text-gray-600">Days</span></div>
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-hours">0</span><span class="text-xs text-gray-600">Hours</span></div>
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-minutes">0</span><span class="text-xs text-gray-600">Minutes</span></div>
+                    <div class="timer-unit"><span class="block text-2xl sm:text-3xl font-extrabold text-rose-700 tabular-nums" id="timer-seconds">0</span><span class="text-xs text-gray-600">Seconds</span></div>
+                </div>
+                <p class="text-xs text-rose-700/80 mt-3">Since October 20, 2024</p>
+            </section>
+
+            <button onclick="goToStep(3)" class="bg-white text-rose-700 border-2 border-rose-300 hover:bg-rose-50 font-bold py-3 px-8 rounded-full shadow-md transition-all hover:scale-105 flex items-center gap-2">
+                Get your suprise pukoo <span>→</span>
+            </button>
+        </div>
+
+        <!-- STEP 3: Interactive Candle Blowing -->
+        <div id="step-3" class="step flex-col items-center justify-center w-full max-w-xl text-center">
+            <div class="wish-scene">
+                <h2 class="text-4xl cursive text-white mb-4 drop-shadow-lg">Make a Wish! 🎂</h2>
+                <p class="text-white mb-12 drop-shadow-md">Baby blow into your microphone.<br><span class="text-xs italic">(Make sure to allow microphone access)</span></p>
+
+                <div class="flex justify-center mb-16 mt-8 w-full">
+                    <div class="cake">
+                        <div class="drip"></div>
+                        <span class="cake-name">SUNICA</span>
+                        <div class="candle-container">
+                            <div class="candle"><div class="flame" id="flame1"></div></div>
+                            <div class="candle"><div class="flame" id="flame2"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="mic-status" class="text-sm text-white mb-4 h-5 drop-shadow-md"></p>
+
+                <button id="fallback-blow" onclick="blowOutCandles()" class="hidden bg-white/90 text-red-700 hover:bg-rose-100 font-bold py-2 px-6 rounded-full shadow transition-all mb-4 text-sm border border-rose-200">
+                    Mic not working? Tap to blow out
+                </button>
+
+                <button id="next-to-gallery" onclick="goToStep(4)" class="hidden mt-8 bg-gradient-to-r from-rose-600 to-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 animate-bounce">
+                    Open your gifts 🎁
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 4: Polaroid Gallery & Letter (Combined for final reveal) -->
+        <div id="step-4" class="step flex-col w-full max-w-5xl items-center py-10">
+            
+            <h2 class="text-5xl cursive text-red-700 mb-12 text-center">Our Beautiful Journey</h2>
+            
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 mb-20 w-full">
+                <div class="polaroid transform -rotate-3">
+                    <img src="our-first-meet.png" alt="Our first video call together" class="w-full h-64 object-cover">
+                    <p class="text-center cursive text-2xl mt-4 text-gray-700">20-10-2024 ❤️</p>
+                </div>
+                <div class="polaroid transform rotate-2 md:-translate-y-6">
+                    <img src="silly-video-calls.png" alt="A collage of our silly video calls" class="w-full h-64 object-cover">
+                    <p class="text-center cursive text-2xl mt-4 text-gray-700">Distance means nothing</p>
+                </div>
+                <div class="polaroid transform -rotate-1">
+                    <img src="forever-us.png" alt="A sweet moment together" class="w-full h-64 object-cover">
+                    <p class="text-center cursive text-2xl mt-4 text-gray-700">My everything 🐻</p>
+                </div>
+            </div>
+
+            <!-- Envelope Section -->
+            <div class="w-full max-w-md mx-auto text-center mt-10">
+                <h3 class="text-2xl text-gray-600 mb-6 italic">Open the letter baby...</h3>
+                
+                <div class="w-full h-64 envelope mx-auto" onclick="this.classList.toggle('open')">
+                    <div class="flap"></div>
+                    <div class="letter text-left">
+                        <p class="cursive text-2xl text-rose-700 mb-2">My Love, my Pukoo,</p>
+                        <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                            Happy 2nd Anniversary, my love! These past two years have brought me so many of the happiest moments of my life. Even with an ocean between the mountains of India and the beaches of Gqeberha, my love for you grows stronger every day.
+                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                            Pukoo, you are my everything. I treasure all that we have built together, and I look forward to choosing each other through every year still to come. This is only the beginning of our story.
+                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                            I know life hasn't always been easy, and I wish I could wrap you in all the happiness and love you deserve. I thank God for bringing your precious soul into my life, and I hope I can keep making you feel cherished, safe, and loved.
+                        </p>
+                        <p class="text-sm text-gray-700 leading-relaxed mb-2">
+                            Happy Anniversary once again, my love. I love you so, so much. Sunica lives forever...
+                        </p>
+                        <p class="cursive text-xl text-rose-700 mt-2 text-right">
+                            Forever yours,<br>Your Love ❤️
+                        </p>
+                    </div>
+                    <div class="envelope-body flex-col">
+                        <span class="text-4xl mb-2">💌</span>
+                        <span class="text-white font-bold text-sm tracking-widest">TAP TO OPEN</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final photo collage -->
+            <section class="w-full mt-20 px-2 sm:px-4" aria-label="A collage of our favorite memories">
+                <h3 class="text-3xl cursive text-red-700 text-center mb-8">A little something for you 🌹</h3>
+                <div class="memory-wall">
+                    <div class="memory-wall-grid" aria-hidden="true">
+                        <div class="memory-photo"><img src="little-something-01.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-02.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-03.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-04.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-05.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-06.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-07.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-08.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-09.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-10.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-11.png" alt=""></div>
+                        <div class="memory-photo"><img src="little-something-12.png" alt=""></div>
+                    </div>
+                    <p class="memory-wall-message cursive">I love you so much, baby ♡</p>
+                </div>
+            </section>
+
+            <!-- Our soundtrack -->
+            <section class="song-section mt-16" aria-labelledby="songs-heading">
+                <div class="text-center mb-8">
+                    <h3 id="songs-heading" class="text-4xl cursive text-white">Our Top Songs</h3>
+                    <p class="mt-2 text-xs tracking-[0.3em] text-rose-100">THE SOUNDTRACK OF US</p>
+                    <p class="mt-3 text-sm text-rose-100/90">Three songs that remind me of you ❤️</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <article class="song-card">
+                        <div class="song-art" style="background: linear-gradient(145deg, #164e63, #0e7490);" aria-hidden="true">🌊</div>
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-white truncate">Ocean Eyes</h4>
+                            <p class="text-sm text-rose-100">Billie Eilish</p>
+                            <a class="song-link" href="https://open.spotify.com/search/Ocean%20Eyes%20Billie%20Eilish" target="_blank" rel="noopener noreferrer" aria-label="Find Ocean Eyes by Billie Eilish on Spotify">
+                                Listen on Spotify <span aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </article>
+                    <article class="song-card">
+                        <div class="song-art" style="background: linear-gradient(145deg, #9f1239, #e11d48);" aria-hidden="true">🌹</div>
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-white truncate">Until I Found You</h4>
+                            <p class="text-sm text-rose-100">Stephen Sanchez</p>
+                            <a class="song-link" href="https://open.spotify.com/search/Until%20I%20Found%20You%20Stephen%20Sanchez" target="_blank" rel="noopener noreferrer" aria-label="Find Until I Found You by Stephen Sanchez on Spotify">
+                                Listen on Spotify <span aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </article>
+                    <article class="song-card">
+                        <div class="song-art" style="background: linear-gradient(145deg, #7c2d12, #c2410c);" aria-hidden="true">🎶</div>
+                        <div class="min-w-0">
+                            <h4 class="font-bold text-white truncate">Perfect</h4>
+                            <p class="text-sm text-rose-100">Ed Sheeran</p>
+                            <a class="song-link" href="https://open.spotify.com/search/Perfect%20Ed%20Sheeran" target="_blank" rel="noopener noreferrer" aria-label="Find Perfect by Ed Sheeran on Spotify">
+                                Listen on Spotify <span aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            
+            <div class="mt-20 text-center text-rose-600 text-sm">
+                Made with love across the miles 🌍
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingHearts();
+            updateRelationshipTimer();
+            setInterval(updateRelationshipTimer, 1000);
+        });
+
+        // --- Background Hearts ---
+        function createFloatingHearts() {
+            const container = document.getElementById('bg-hearts');
+            const emojis = ['❤️', '🌹', '💌', '🌹', '✨'];
+            for(let i = 0; i < 25; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        let confettiCanvas;
+        let confettiContext;
+        let confettiParticles = [];
+        let confettiFrame = 0;
+
+        function launchConfetti({
+            particleCount = 100,
+            spread = 70,
+            origin = { x: 0.5, y: 0.6 },
+            angle = 90,
+            colors = ['#be123c', '#e11d48', '#fb7185', '#fff']
+        } = {}) {
+            if(!confettiCanvas) {
+                confettiCanvas = document.createElement('canvas');
+                confettiCanvas.setAttribute('aria-hidden', 'true');
+                Object.assign(confettiCanvas.style, {
+                    position: 'fixed',
+                    inset: '0',
+                    width: '100%',
+                    height: '100%',
+                    pointerEvents: 'none',
+                    zIndex: '200'
+                });
+                document.body.appendChild(confettiCanvas);
+                confettiContext = confettiCanvas.getContext('2d');
+                window.addEventListener('resize', resizeConfettiCanvas);
+            }
+
+            resizeConfettiCanvas();
+            const baseAngle = angle * Math.PI / 180;
+            const spreadRadians = spread * Math.PI / 180;
+            const startX = innerWidth * origin.x;
+            const startY = innerHeight * origin.y;
+
+            for(let i = 0; i < particleCount; i++) {
+                const direction = baseAngle + (Math.random() - 0.5) * spreadRadians;
+                const speed = 5 + Math.random() * 9;
+                confettiParticles.push({
+                    x: startX,
+                    y: startY,
+                    velocityX: Math.cos(direction) * speed,
+                    velocityY: -Math.sin(direction) * speed,
+                    size: 5 + Math.random() * 7,
+                    rotation: Math.random() * Math.PI,
+                    rotationSpeed: (Math.random() - 0.5) * 0.25,
+                    gravity: 0.1 + Math.random() * 0.12,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    life: 210
+                });
+            }
+
+            if(!confettiFrame) animateConfetti();
+        }
+
+        function resizeConfettiCanvas() {
+            if(!confettiCanvas || !confettiContext) return;
+            const pixelRatio = window.devicePixelRatio || 1;
+            confettiCanvas.width = innerWidth * pixelRatio;
+            confettiCanvas.height = innerHeight * pixelRatio;
+            confettiContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        }
+
+        function animateConfetti() {
+            confettiContext.clearRect(0, 0, innerWidth, innerHeight);
+            confettiParticles = confettiParticles.filter(particle => particle.life > 0 && particle.y < innerHeight + 30);
+
+            confettiParticles.forEach(particle => {
+                particle.x += particle.velocityX;
+                particle.y += particle.velocityY;
+                particle.velocityY += particle.gravity;
+                particle.velocityX *= 0.99;
+                particle.rotation += particle.rotationSpeed;
+                particle.life--;
+
+                confettiContext.save();
+                confettiContext.translate(particle.x, particle.y);
+                confettiContext.rotate(particle.rotation);
+                confettiContext.globalAlpha = Math.min(1, particle.life / 25);
+                confettiContext.fillStyle = particle.color;
+                confettiContext.fillRect(-particle.size / 2, -particle.size / 2, particle.size, particle.size * 0.65);
+                confettiContext.restore();
+            });
+
+            if(confettiParticles.length) {
+                confettiFrame = requestAnimationFrame(animateConfetti);
+            } else {
+                confettiContext.clearRect(0, 0, innerWidth, innerHeight);
+                confettiFrame = 0;
+            }
+        }
+
+        function updateRelationshipTimer() {
+            const start = new Date(2024, 9, 20);
+            const now = new Date();
+            const values = {};
+
+            if(now < start) {
+                values.years = 0;
+                values.months = 0;
+                values.days = 0;
+                values.hours = 0;
+                values.minutes = 0;
+                values.seconds = 0;
+            } else {
+                let cursor = new Date(start);
+                values.years = now.getFullYear() - cursor.getFullYear();
+                cursor.setFullYear(cursor.getFullYear() + values.years);
+                if(cursor > now) {
+                    values.years--;
+                    cursor = new Date(start);
+                    cursor.setFullYear(cursor.getFullYear() + values.years);
+                }
+
+                values.months = (now.getFullYear() - cursor.getFullYear()) * 12 + now.getMonth() - cursor.getMonth();
+                cursor.setMonth(cursor.getMonth() + values.months);
+                if(cursor > now) {
+                    values.months--;
+                    cursor = new Date(start);
+                    cursor.setFullYear(cursor.getFullYear() + values.years);
+                    cursor.setMonth(cursor.getMonth() + values.months);
+                }
+
+                let remaining = now - cursor;
+                values.days = Math.floor(remaining / 86400000);
+                cursor.setDate(cursor.getDate() + values.days);
+                remaining = now - cursor;
+                values.hours = Math.floor(remaining / 3600000);
+                values.minutes = Math.floor((remaining % 3600000) / 60000);
+                values.seconds = Math.floor((remaining % 60000) / 1000);
+            }
+
+            Object.entries(values).forEach(([unit, value]) => {
+                document.getElementById(`timer-${unit}`).textContent = value;
+            });
+        }
+
+        // --- Navigation Logic ---
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(el => {
+                el.classList.remove('active');
+                el.style.opacity = 0;
+            });
+            
+            const nextStep = document.getElementById(`step-${stepNumber}`);
+            nextStep.classList.add('active');
+            
+            // Allow display:flex to apply before fading in
+            setTimeout(() => {
+                nextStep.style.opacity = 1;
+            }, 50);
+
+            // Special initializations based on step
+            if(stepNumber === 3) {
+                initMicrophone();
+            }
+            if(stepNumber === 4) {
+                const message = document.querySelector('.memory-wall-message');
+                const wall = document.querySelector('.memory-wall');
+                if(message && wall && !message.dataset.observed) {
+                    message.dataset.observed = 'true';
+                    const observer = new IntersectionObserver(entries => {
+                        if(entries.some(entry => entry.isIntersecting)) {
+                            message.classList.add('is-writing');
+                            observer.disconnect();
+                        }
+                    }, { threshold: 0.25 });
+                    observer.observe(wall);
+                }
+
+                // final confetti
+                launchConfetti({
+                    particleCount: 500,
+                    spread: 70,
+                    origin: { x: 0.5, y: 0.6 },
+                    colors: ['#be123c', '#e11d48', '#fb7185', '#fff']
+                });
+            }
+        }
+
+        // --- Passcode Logic ---
+        const correctPasscode = "20-10-2024";
+        const altPasscode = "20102024"; // just in case they don't type dashes
+
+        function checkPasscode() {
+            let input = document.getElementById('passcode-input').value.trim();
+            const errorMsg = document.getElementById('passcode-error');
+            const box = document.getElementById('passcode-box');
+
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic.paused) {
+                toggleMusic();
+            }
+
+            if (input === correctPasscode || input === altPasscode) {
+                // Success
+                errorMsg.style.opacity = '0';
+                goToStep(2);
+            } else {
+                // Error
+                errorMsg.style.opacity = '1';
+                box.classList.remove('shake');
+                void box.offsetWidth; // trigger reflow
+                box.classList.add('shake');
+            }
+        }
+
+        // Auto-format date input and enter key support
+        document.getElementById('passcode-input').addEventListener('input', function (e) {
+            let val = e.target.value.replace(/\D/g, '');
+            let newVal = '';
+            if(val.length > 0) newVal += val.substring(0,2);
+            if(val.length > 2) newVal += '-' + val.substring(2,4);
+            if(val.length > 4) newVal += '-' + val.substring(4,8);
+            e.target.value = newVal;
+        });
+
+        document.getElementById('passcode-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPasscode();
+        });
+
+        // --- Audio/Music Logic ---
+        let isMusicPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            const btn = document.getElementById('music-btn');
+
+            if(isMusicPlaying) {
+                audio.pause();
+                btn.classList.remove('playing-anim');
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+            } else {
+                audio.volume = 0.3;
+                audio.play().catch(e => console.log("Audio autoplay prevented"));
+                btn.classList.add('playing-anim');
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // --- Microphone / Candle Blow Logic ---
+        let audioContext, analyser, microphone, scriptProcessor;
+        let candlesBlownOut = false;
+
+        async function initMicrophone() {
+            const statusText = document.getElementById('mic-status');
+            const fallbackBtn = document.getElementById('fallback-blow');
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                if(candlesBlownOut) {
+                    stream.getTracks().forEach(track => track.stop());
+                    return;
+                }
+                statusText.innerText = "Microphone connected. Blow into it!";
+                
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
+
+                analyser.smoothingTimeConstant = 0.8;
+                analyser.fftSize = 1024;
+
+                microphone.connect(analyser);
+                analyser.connect(scriptProcessor);
+                scriptProcessor.connect(audioContext.destination);
+
+                scriptProcessor.onaudioprocess = function() {
+                    if(candlesBlownOut) return;
+                    
+                    const array = new Uint8Array(analyser.frequencyBinCount);
+                    analyser.getByteFrequencyData(array);
+                    let values = 0;
+                    
+                    for (let i = 0; i < array.length; i++) {
+                        values += (array[i]);
+                    }
+                    
+                    let average = values / array.length;
+                    
+                    // Threshold for blowing (varies by mic, 40-60 is usually a good blowing threshold)
+                    if (average > 45) {
+                        blowOutCandles();
+                    }
+                };
+                
+                // Show fallback just in case they don't want to blow
+                setTimeout(() => {
+                    if(!candlesBlownOut) fallbackBtn.classList.remove('hidden');
+                }, 5000);
+
+            } catch (err) {
+                console.error("Mic access denied", err);
+                if(candlesBlownOut) return;
+                statusText.innerText = "Microphone access denied.";
+                fallbackBtn.classList.remove('hidden');
+            }
+        }
+
+        function blowOutCandles() {
+            if(candlesBlownOut) return;
+            candlesBlownOut = true;
+            
+            // Extinguish flames
+            document.getElementById('flame1').classList.add('out');
+            document.getElementById('flame2').classList.add('out');
+            
+            // Stop audio processing if it exists
+            if(scriptProcessor) {
+                scriptProcessor.disconnect();
+                microphone.disconnect();
+                analyser.disconnect();
+            }
+            document.getElementById('mic-status').innerText = "Yay! Happy Anniversary!";
+            document.getElementById('fallback-blow').classList.add('hidden');
+
+            launchConfetti({
+                particleCount: 250,
+                angle: 60,
+                spread: 65,
+                origin: { x: 0, y: 0.65 },
+                colors: ['#be123c', '#e11d48']
+            });
+            launchConfetti({
+                particleCount: 250,
+                angle: 120,
+                spread: 65,
+                origin: { x: 1, y: 0.65 },
+                colors: ['#be123c', '#e11d48']
+            });
+
+            // Show next button
+            setTimeout(() => {
+                document.getElementById('next-to-gallery').classList.remove('hidden');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
